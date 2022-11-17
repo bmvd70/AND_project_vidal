@@ -12,14 +12,26 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.and_vidal.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_tabata"
+        android:name="com.example.and_vidal.ui.tabata.TabataFragment"
+        android:label="@string/title_tabata"
+        tools:layout="@layout/fragment_tabata" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.and_vidal.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_nutrition"
+        android:name="com.example.and_vidal.ui.nutrition.NutritionFragment"
+        android:label="@string/title_nutrition"
+        tools:layout="@layout/fragment_nutrition" />
+
+    <fragment
+        android:id="@+id/navigation_stats"
+        android:name="com.example.and_vidal.ui.stats.StatsFragment"
+        android:label="@string/title_stats"
+        tools:layout="@layout/fragment_stats" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.and_vidal.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

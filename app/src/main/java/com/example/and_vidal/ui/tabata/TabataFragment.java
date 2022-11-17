@@ -1,4 +1,4 @@
-package com.example.and_vidal.ui.notifications;
+package com.example.and_vidal.ui.tabata;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.and_vidal.databinding.FragmentNotificationsBinding;
+import com.example.and_vidal.databinding.FragmentTabataBinding;
 
-public class NotificationsFragment extends Fragment {
+public class TabataFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentTabataBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        TabataViewModel dashboardViewModel =
+                new ViewModelProvider(this).get(TabataViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentTabataBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textTabata;
+        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
