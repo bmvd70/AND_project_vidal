@@ -1,5 +1,7 @@
 package com.example.and_vidal.ui.profile;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.and_vidal.FirebaseUIActivity;
 import com.example.and_vidal.databinding.FragmentProfileBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -30,7 +33,11 @@ public class ProfileFragment extends Fragment {
         fab_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Context context = getContext();
+
                 Toast.makeText(getActivity(), "FAB_profile was clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), FirebaseUIActivity.class);
+                startActivity(intent); //basic
             }
         });
 
