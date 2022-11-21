@@ -32,6 +32,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
             }
     );
 
+
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) {
