@@ -11,10 +11,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.and_vidal.FirebaseUIActivity;
+import com.example.and_vidal.R;
 import com.example.and_vidal.databinding.FragmentProfileBinding;
+import com.example.and_vidal.ui.login.LoginFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ProfileFragment extends Fragment {
@@ -36,8 +39,8 @@ public class ProfileFragment extends Fragment {
                 Context context = getContext();
 
                 Toast.makeText(getActivity(), "FAB_profile was clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), FirebaseUIActivity.class);
-                startActivity(intent); //basic
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment_activity_main, new LoginFragment()).commit();
             }
         });
 
