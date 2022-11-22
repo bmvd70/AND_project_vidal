@@ -20,7 +20,7 @@ public class NutritionFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NutritionViewModel dashboardViewModel =
+        NutritionViewModel nutritionViewModel =
                 new ViewModelProvider(this).get(NutritionViewModel.class);
         binding = FragmentNutritionBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -35,7 +35,7 @@ public class NutritionFragment extends Fragment {
         });
 
         final TextView textView = binding.textNutrition;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        nutritionViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

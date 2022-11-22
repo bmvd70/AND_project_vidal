@@ -20,7 +20,7 @@ public class StatsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        StatsViewModel notificationsViewModel =
+        StatsViewModel statsViewModel =
                 new ViewModelProvider(this).get(StatsViewModel.class);
         binding = FragmentStatsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -35,7 +35,7 @@ public class StatsFragment extends Fragment {
         });
 
         final TextView textView = binding.textStats;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        statsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

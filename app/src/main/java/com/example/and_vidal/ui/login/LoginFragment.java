@@ -2,13 +2,21 @@ package com.example.and_vidal.ui.login;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.and_vidal.R;
+import com.example.and_vidal.databinding.FragmentLoginBinding;
+import com.example.and_vidal.databinding.FragmentProfileBinding;
+import com.example.and_vidal.ui.profile.ProfileFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,14 +29,13 @@ public class LoginFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private FragmentLoginBinding binding;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public LoginFragment() {
-        // Required empty public constructor
-    }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -58,9 +65,47 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentLoginBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        Button button = (Button) binding.login;
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                TextView edPassword = binding.password;
+                TextView edEmail = binding.username;
+                String email = edEmail.getText().toString().trim();
+                String password = edPassword.getText().toString().trim();
+                Toast.makeText(getActivity(), "Button was clicked", Toast.LENGTH_SHORT).show();
+                if (password.isEmpty()) {
+                    edPassword.setError("Password is required!");
+                    edPassword.requestFocus();
+                    return;
+                }
+
+                if (edPassword.length() < 6) {
+                    edPassword.setError("Password must be at least 6 characters long.");
+                    edPassword.requestFocus();
+                    return;
+                }
+                if (email.isEmpty()) {
+                    edEmail.setError("Email is required!");
+                    edEmail.requestFocus();
+                    return;
+                }
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login2, container, false);
+        return root;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

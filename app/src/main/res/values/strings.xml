@@ -1,15 +1,28 @@
 <resources>
     <string name="app_name">AND_vidal</string>
+    <!-- HomeFragment -->
     <string name="title_home">Home</string>
+
+    <!-- TabataFragment -->
     <string name="title_tabata">Tabata</string>
+
+    <!-- NutritionFragment -->
     <string name="title_nutrition">Nutrition</string>
+
+    <!--StatsFragment -->
     <string name="title_stats">Stats</string>
+
+    <!-- ProfileFragment -->
     <string name="title_profile">Profile</string>
 
+    <!-- LoginFragment -->
 
+
+    <!-- General strings -->
     <string name="fab_content_descriptor_settings">settings symbol</string>
     <string name="fab_content_descriptor_add">add symbol</string>
     <string name="fab_content_descriptor_filter">filter symbol</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

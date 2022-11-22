@@ -13,12 +13,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.and_vidal.FirebaseUIActivity;
+import com.example.and_vidal.MainActivity;
 import com.example.and_vidal.R;
 import com.example.and_vidal.databinding.FragmentProfileBinding;
 import com.example.and_vidal.ui.login.LoginFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
@@ -26,11 +32,12 @@ public class ProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ProfileViewModel dashboardViewModel =
+        ProfileViewModel profileViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+        final TextView textView = binding.textProfile;
+        NavController navController = NavHostFragment.findNavController(this);
         FloatingActionButton fab_profile = binding.fabProfile;
 
         fab_profile.setOnClickListener(new View.OnClickListener() {
@@ -40,12 +47,14 @@ public class ProfileFragment extends Fragment {
 
                 Toast.makeText(getActivity(), "FAB_profile was clicked", Toast.LENGTH_SHORT).show();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment_activity_main, new LoginFragment()).commit();
+                transaction.replace(R.id.profileContainer, new LoginFragment());//.commit();
+                transaction.addToBackStack(null);
+                transaction.setReorderingAllowed(true).commit();
             }
         });
 
-        final TextView textView = binding.textProfile;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
     }
 
