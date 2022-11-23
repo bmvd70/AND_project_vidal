@@ -25,9 +25,9 @@ public class NutritionFragment extends Fragment {
         binding = FragmentNutritionBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        FloatingActionButton fab_nutrition = binding.fabNutrition;
+        FloatingActionButton fabNutrition = binding.fabNutrition;
 
-        fab_nutrition.setOnClickListener(new View.OnClickListener() {
+        fabNutrition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "FAB_nurt was clicked", Toast.LENGTH_SHORT).show();

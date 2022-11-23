@@ -1,12 +1,10 @@
-package com.example.and_vidal.ui.profile;
+package com.example.and_vidal.ui.profileface;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,35 +15,29 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.and_vidal.R;
-import com.example.and_vidal.databinding.FragmentProfileBinding;
-import com.example.and_vidal.ui.profileface.ProfileFaceFragment;
+import com.example.and_vidal.databinding.FragmentProfileFaceBinding;
 import com.example.and_vidal.ui.signin.SignInFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFaceFragment extends Fragment {
 
-    private FragmentProfileBinding binding;
+    private FragmentProfileFaceBinding binding;
     private FirebaseAuth mAuth;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ProfileViewModel profileViewModel =
-                new ViewModelProvider(this).get(ProfileViewModel.class);
-        binding = FragmentProfileBinding.inflate(inflater, container, false);
+        ProfileFaceViewModel profileViewModel =
+                new ViewModelProvider(this).get(ProfileFaceViewModel.class);
+        binding = FragmentProfileFaceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         NavController navController = NavHostFragment.findNavController(this);
-        //FloatingActionButton fabProfile = binding.fabProfile;
-        //Button btnLogout = binding.btnLogout;
+        FloatingActionButton fabProfile = binding.fabProfile;
+        Button btnLogout = binding.btnLogout;
         mAuth = FirebaseAuth.getInstance();
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.profileContainer, new ProfileFaceFragment())
-                .addToBackStack(null)
-                .setReorderingAllowed(true)
-                .commit();
 
-        /*fabProfile.setOnClickListener(new View.OnClickListener() {
+        fabProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
@@ -66,9 +58,9 @@ public class ProfileFragment extends Fragment {
                 transaction.replace(R.id.profileContainer, new SignInFragment())
                         .addToBackStack(null)
                         .setReorderingAllowed(true)
-                        .commit();
+                        .commit();*/
             }
-        });*/
+        });
 
         //profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
@@ -78,17 +70,17 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        //checkLogin();
+        checkLogin();
     }
 
-    /*void checkLogin() {
+    void checkLogin() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             binding.textLoggedIn.setText(currentUser.getEmail());
         } else {
             binding.textLoggedIn.setText("No user");
         }
-    }*/
+    }
 
     @Override
     public void onDestroyView() {

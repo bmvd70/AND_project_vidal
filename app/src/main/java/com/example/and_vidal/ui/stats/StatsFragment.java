@@ -25,9 +25,9 @@ public class StatsFragment extends Fragment {
         binding = FragmentStatsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        FloatingActionButton fab_stats = binding.fabStats;
+        FloatingActionButton fabStats = binding.fabStats;
 
-        fab_stats.setOnClickListener(new View.OnClickListener() {
+        fabStats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Stats", Toast.LENGTH_SHORT).show();

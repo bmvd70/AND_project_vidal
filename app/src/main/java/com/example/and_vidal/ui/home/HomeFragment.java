@@ -25,9 +25,9 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        FloatingActionButton fab_home = binding.fabHome;
+        FloatingActionButton fabHome = binding.fabHome;
 
-        fab_home.setOnClickListener(new View.OnClickListener() {
+        fabHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "FAB_home clicked", Toast.LENGTH_SHORT).show();
