@@ -1,16 +1,16 @@
-package com.example.and_vidal.ui.login;
+package com.example.and_vidal.ui.signup;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class LoginViewModel extends ViewModel {
+public class SignUpViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public LoginViewModel() {
+    public SignUpViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is login fragment");
+        mText.setValue("This is signup fragment");
     }
 
     public LiveData<String> getText() {
