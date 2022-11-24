@@ -1,6 +1,7 @@
 package com.example.and_vidal.ui.profileface;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,12 @@ public class ProfileFaceFragment extends Fragment {
     private FragmentProfileFaceBinding binding;
     private FirebaseAuth mAuth;
 
+    private static final String TAG = "ProfileFragment";
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ProfileFaceViewModel profileViewModel =
-                new ViewModelProvider(this).get(ProfileFaceViewModel.class);
         binding = FragmentProfileFaceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        NavController navController = NavHostFragment.findNavController(this);
         FloatingActionButton fabProfile = binding.fabProfile;
         Button btnLogout = binding.btnLogout;
         mAuth = FirebaseAuth.getInstance();
@@ -40,11 +40,16 @@ public class ProfileFaceFragment extends Fragment {
         fabProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.profileContainer, new SignInFragment())
-                        .addToBackStack(null)
-                        .setReorderingAllowed(true)
-                        .commit();
+                if (checkLogin()) {
+                    Toast.makeText(getContext(), "You are already logged in", Toast.LENGTH_SHORT).show();
+                } else {
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.profileContainer, new SignInFragment())
+                            .addToBackStack(null)
+                            .setReorderingAllowed(true)
+                            .commit();
+                }
+
             }
         });
 
@@ -53,12 +58,6 @@ public class ProfileFaceFragment extends Fragment {
             public void onClick(View v) {
                 mAuth.signOut();
                 checkLogin();
-                Toast.makeText(getActivity(), "Users signed out", Toast.LENGTH_SHORT).show();
-                /*FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.profileContainer, new SignInFragment())
-                        .addToBackStack(null)
-                        .setReorderingAllowed(true)
-                        .commit();*/
             }
         });
 
@@ -73,12 +72,35 @@ public class ProfileFaceFragment extends Fragment {
         checkLogin();
     }
 
-    void checkLogin() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkLogin();
+        Log.d(TAG, "onResume: in Profile Face");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: in Profile Face");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: in Profile Face");
+    }
+
+    boolean checkLogin() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             binding.textLoggedIn.setText(currentUser.getEmail());
+            Toast.makeText(getActivity(), currentUser.getEmail() + " is signedin", Toast.LENGTH_SHORT).show();
+            return true;
         } else {
             binding.textLoggedIn.setText("No user");
+            Toast.makeText(getActivity(), "No user", Toast.LENGTH_SHORT).show();
+            return false;
         }
     }
 

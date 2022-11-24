@@ -11,11 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.and_vidal.R;
 import com.example.and_vidal.databinding.FragmentSigninBinding;
+import com.example.and_vidal.ui.profile.ProfileFragment;
+import com.example.and_vidal.ui.profileface.ProfileFaceFragment;
 import com.example.and_vidal.ui.signup.SignUpFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +40,7 @@ public class SignInFragment extends Fragment {
     private FragmentSigninBinding binding;
 
     // TODO: Rename and change types of parameters
-    private static final String TAG = "CustomAuthActivity";
+    private static final String TAG = "ProfileFragment";
     private String mParam1;
     private String mParam2;
     private FirebaseAuth mAuth;
@@ -84,9 +87,10 @@ public class SignInFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentSigninBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Button button = (Button) binding.btnSignin;
+        Button btnSignin = (Button) binding.btnSignin;
+        ImageButton btnBack = (ImageButton) binding.btnSiBack;
         TextView gotoSignup = (TextView) binding.siGotoSignup;
-        /*button.setOnClickListener(new View.OnClickListener() {
+        /*btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn((String)binding.siUsername.getText().toString(), binding.siPassword.getText().toString());
@@ -96,7 +100,6 @@ public class SignInFragment extends Fragment {
         gotoSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "TV_goto_Signup was clicked", Toast.LENGTH_SHORT).show();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.profileContainer, new SignUpFragment())
                         .addToBackStack(null)
@@ -104,15 +107,13 @@ public class SignInFragment extends Fragment {
                         .commit();
             }
         });
-        button.setOnClickListener(new View.OnClickListener() {
+        btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 TextView edPassword = binding.siPassword;
                 TextView edEmail = binding.siEmail;
                 String email = edEmail.getText().toString().trim();
                 String password = edPassword.getText().toString().trim();
-                //Toast.makeText(getActivity(), "Button was clicked", Toast.LENGTH_SHORT).show();
                 if (password.isEmpty()) {
                     edPassword.setError("Password is required!");
                     edPassword.requestFocus();
@@ -129,10 +130,16 @@ public class SignInFragment extends Fragment {
                     edEmail.requestFocus();
                     return;
                 }
-                //startSignUp();
+                signIn();
             }
         });
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goBack();
+            }
+        });
         // Inflate the layout for this fragment
         return root;
     }
@@ -144,7 +151,8 @@ public class SignInFragment extends Fragment {
     }
 
     private void signIn() {
-        mAuth.signInWithEmailAndPassword(binding.siEmail.getText().toString(), binding.siPassword.getText().toString())
+        mAuth.signInWithEmailAndPassword(binding.siEmail.getText().toString(),
+                        binding.siPassword.getText().toString())
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -153,16 +161,57 @@ public class SignInFragment extends Fragment {
                             Log.d(TAG, "signInWithEmailPw:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            Toast.makeText(getActivity(), user.getEmail() + " was signed in", Toast.LENGTH_SHORT).show();
+                            goBack();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmailPw:failure", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed.",
+                            Toast.makeText(getActivity(), "Sign In failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
                     }
                 });
     }
+
+    boolean checkLogin() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            Toast.makeText(getActivity(), currentUser.getEmail() + " is signedin", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            Toast.makeText(getActivity(), "No user", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+    void goBack() {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.profileContainer, new ProfileFaceFragment())
+                .addToBackStack(null)
+                .setReorderingAllowed(true)
+                .commit();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: in Sign in");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: in Sign in");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: in Sign in");
+    }
+
+
 
     private void updateUI(FirebaseUser user) {
         Log.d(TAG, "updateUI:" + user);

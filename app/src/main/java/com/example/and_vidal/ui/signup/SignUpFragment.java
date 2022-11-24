@@ -6,13 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.and_vidal.R;
 import com.example.and_vidal.databinding.FragmentSignupBinding;
+import com.example.and_vidal.ui.profileface.ProfileFaceFragment;
+import com.example.and_vidal.ui.signin.SignInFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,11 +38,10 @@ public class SignUpFragment extends Fragment {
     private FragmentSignupBinding binding;
 
     // TODO: Rename and change types of parameters
-    private static final String TAG = "CustomAuthActivity";
+    private static final String TAG = "ProfileFragment";
     private String mParam1;
     private String mParam2;
     private FirebaseAuth mAuth;
-    private String mCustomToken;
 
     /**
      * Use this factory method to create a new instance of
@@ -80,9 +84,10 @@ public class SignUpFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentSignupBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Button button = (Button) binding.btnSignup;
+        Button btnSignup = (Button) binding.btnSignup;
+        ImageButton btnBack = (ImageButton) binding.btnSuBack;
 
-        button.setOnClickListener(new View.OnClickListener() {
+        btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -90,7 +95,6 @@ public class SignUpFragment extends Fragment {
                 TextView edEmail = binding.suEmail;
                 String email = edEmail.getText().toString().trim();
                 String password = edPassword.getText().toString().trim();
-                //Toast.makeText(getActivity(), "Button was clicked", Toast.LENGTH_SHORT).show();
                 if (email.isEmpty()) {
                     edEmail.setError("Email is required!");
                     edEmail.requestFocus();
@@ -106,12 +110,16 @@ public class SignUpFragment extends Fragment {
                     edPassword.requestFocus();
                     return;
                 }
-
                 signUp();
             }
         });
 
-        // Inflate the layout for this fragment
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goBack();
+            }
+        });
         return root;
     }
 
@@ -131,10 +139,13 @@ public class SignUpFragment extends Fragment {
                             Log.d(TAG, "createUserWithEmailPw:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            assert user != null;
+                            Toast.makeText(getActivity(), user.getEmail() + " was signed up!", Toast.LENGTH_SHORT).show();
+                            goBack();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmailPw:failure", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed.",
+                            Toast.makeText(getActivity(), "Sign up failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -142,6 +153,31 @@ public class SignUpFragment extends Fragment {
                 });
     }
 
+    void goBack() {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.profileContainer, new SignInFragment())
+                .addToBackStack(null)
+                .setReorderingAllowed(true)
+                .commit();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: in Sign up");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: in Sign up");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: in Sign up");
+    }
 
     private void updateUI(FirebaseUser user) {
         Log.d(TAG, "updateUI:" + user);
