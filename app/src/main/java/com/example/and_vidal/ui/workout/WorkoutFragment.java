@@ -1,4 +1,4 @@
-package com.example.and_vidal.ui.home;
+package com.example.and_vidal.ui.workout;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,18 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.and_vidal.databinding.FragmentHomeBinding;
+import com.example.and_vidal.databinding.FragmentWorkoutBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class HomeFragment extends Fragment {
+public class WorkoutFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentWorkoutBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        WorkoutViewModel workoutViewModel =
+                new ViewModelProvider(this).get(WorkoutViewModel.class);
+        binding = FragmentWorkoutBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         FloatingActionButton fabHome = binding.fabHome;
@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
         });
 
         final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        workoutViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AND_vidal</string>
-    <!-- HomeFragment -->
-    <string name="title_home">Home</string>
+    <!-- WorkoutFragment -->
+    <string name="title_workout">Workout</string>
 
     <!-- TabataFragment -->
     <string name="title_tabata">Tabata</string>
