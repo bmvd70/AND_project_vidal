@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AND_vidal</string>
+    <string name="app_name">Work-it-out</string>
     <!-- WorkoutFragment -->
     <string name="title_workout">Workout</string>
 
