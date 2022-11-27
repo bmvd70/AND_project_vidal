@@ -26,6 +26,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SignInFragment#newInstance} factory method to
@@ -153,7 +155,7 @@ public class SignInFragment extends Fragment {
     private void signIn() {
         mAuth.signInWithEmailAndPassword(binding.siEmail.getText().toString(),
                         binding.siPassword.getText().toString())
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -176,16 +178,10 @@ public class SignInFragment extends Fragment {
 
     boolean checkLogin() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            Toast.makeText(getActivity(), currentUser.getEmail() + " is signedin", Toast.LENGTH_SHORT).show();
-            return true;
-        } else {
-            Toast.makeText(getActivity(), "No user", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        return currentUser != null;
     }
 
-    void goBack() {
+    public void goBack() {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.profileContainer, new ProfileFaceFragment())
                 .addToBackStack(null)
@@ -208,7 +204,9 @@ public class SignInFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: in Sign in");
+        if (checkLogin()) {
+            goBack();
+        }
     }
 
 
