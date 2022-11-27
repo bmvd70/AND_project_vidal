@@ -33,5 +33,8 @@
     <!-- Hint strings -->
     <string name="hint_email">Enter email</string>
     <string name="hint_password">Enter password</string>
+    <string name="workout_placeholder_name">Workout Name</string>
+    <string name="workout_placeholder_description">Workout Description</string>
+    <string name="content_descriptor_workout_list_image">Workout list image</string>
 
 </resources>
