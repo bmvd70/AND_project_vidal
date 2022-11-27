@@ -6,7 +6,7 @@
     android:layout_height="88dp"
     android:layout_marginHorizontal="10dp"
     android:layout_marginVertical="5dp"
-    android:background="@color/background_surface"
+    android:background="@color/bg"
     >
 
     <ImageView
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"
-        android:textColor="#@color/text_on_surface"
+        android:textColor="@color/text_on_surface"
         android:text="@string/workout_placeholder_name"
         android:textSize="32sp"
         android:textStyle="bold"
