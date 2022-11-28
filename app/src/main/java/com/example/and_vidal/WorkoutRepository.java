@@ -5,6 +5,10 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.and_vidal.api.ServiceGenerator;
+import com.example.and_vidal.entities.Workout;
+import com.example.and_vidal.entities.WorkoutResponse;
+import com.example.and_vidal.entities.WorkoutsListResponse;
 import com.example.and_vidal.ui.DAO.IWorkoutsDAO;
 import com.example.and_vidal.ui.DAO.WorkoutsDAO;
 
@@ -19,7 +23,7 @@ import retrofit2.internal.EverythingIsNonNull;
 public class WorkoutRepository {
     private static WorkoutRepository instance;
     private final MutableLiveData<Workout> searchedWorkout;
-    private IWorkoutsDAO workoutsDAO;
+    private final IWorkoutsDAO workoutsDAO;
 
     private WorkoutRepository() {
         searchedWorkout = new MutableLiveData<>();
@@ -62,8 +66,8 @@ public class WorkoutRepository {
             @EverythingIsNonNull
             public void onResponse(Call<WorkoutsListResponse> call, Response<WorkoutsListResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    //searchedWorkout.setValue(response.body().getResults());
-                    Log.i("WorkoutRepository_requestWorkoutList", "onSuccess: " + response.body().getResults());
+                    Log.i("WorkoutRepository_requestWorkoutList",
+                            "onSuccess: " + response.body().getResults());
                     saveToDb(response.body().getResults());
                 }
             }
@@ -85,5 +89,4 @@ public class WorkoutRepository {
             workoutsDAO.addWorkout(item);
         }
     }
-
 }

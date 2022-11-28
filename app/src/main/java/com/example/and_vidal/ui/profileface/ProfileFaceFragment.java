@@ -61,8 +61,6 @@ public class ProfileFaceFragment extends Fragment {
             }
         });
 
-        //profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
         return root;
     }
 
@@ -76,30 +74,26 @@ public class ProfileFaceFragment extends Fragment {
     public void onResume() {
         super.onResume();
         checkLogin();
-        Log.d(TAG, "onResume: in Profile Face");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause: in Profile Face");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop: in Profile Face");
     }
 
     boolean checkLogin() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             binding.textLoggedIn.setText(currentUser.getEmail());
-            Toast.makeText(getActivity(), currentUser.getEmail() + " is signedin", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), currentUser.getEmail() + " is signed in", Toast.LENGTH_SHORT).show();
             return true;
         } else {
             binding.textLoggedIn.setText("No user");
-            Toast.makeText(getActivity(), "No user", Toast.LENGTH_SHORT).show();
             return false;
         }
     }

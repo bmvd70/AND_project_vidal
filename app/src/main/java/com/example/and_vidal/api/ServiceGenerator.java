@@ -1,4 +1,4 @@
-package com.example.and_vidal;
+package com.example.and_vidal.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

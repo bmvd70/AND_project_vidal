@@ -1,4 +1,4 @@
-package com.example.and_vidal;
+package com.example.and_vidal.entities;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.and_vidal.R;
 
 import java.util.List;
 

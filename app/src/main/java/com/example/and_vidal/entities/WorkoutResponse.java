@@ -1,13 +1,15 @@
-package com.example.and_vidal;
+package com.example.and_vidal.entities;
 
 import android.util.Log;
 
-public class WorkoutResponse {
-    private String name;
-    private String description;
-    private int id;
+import com.example.and_vidal.entities.Workout;
 
-    public WorkoutResponse(String name, String description) {
+public class WorkoutResponse {
+    private final String name;
+    private final String description;
+    private final int id;
+
+    public WorkoutResponse(String name, String description, int id) {
         Log.i("WorkoutResponse", "WorkoutResponse: " + name + " " + description);
         this.name = name;
         this.description = description;

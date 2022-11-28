@@ -33,7 +33,6 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.and_vidal.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile_face" >
-    </fragment>
+        tools:layout="@layout/fragment_profile_face" />
 
 </navigation>

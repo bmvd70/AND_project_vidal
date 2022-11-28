@@ -1,4 +1,6 @@
-package com.example.and_vidal;
+package com.example.and_vidal.entities;
+
+import com.example.and_vidal.entities.WorkoutResponse;
 
 import java.util.ArrayList;
 
