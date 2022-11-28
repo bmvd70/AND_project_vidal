@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel;
 import com.example.and_vidal.Workout;
 import com.example.and_vidal.WorkoutRepository;
 
+import java.util.List;
+
 public class WorkoutViewModel extends ViewModel {
 
     //private final MutableLiveData<String> mText;
@@ -28,4 +30,13 @@ public class WorkoutViewModel extends ViewModel {
         Log.i("WorkoutViewModel", "searchWorkout: " + id);
         repository.searchWorkoutById(id);
     }
+
+    public void searchWorkoutList() {
+        repository.requestWorkoutList();
+    }
+    public MutableLiveData<List<Workout>> requestWorkoutList() {
+        return repository.getAllWorkouts();
+    }
+
+
 }

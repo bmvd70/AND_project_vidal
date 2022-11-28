@@ -11,12 +11,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.and_vidal.R;
 import com.example.and_vidal.Workout;
 import com.example.and_vidal.databinding.FragmentWorkoutBinding;
+import com.example.and_vidal.ui.profileface.ProfileFaceFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -49,50 +52,14 @@ public class WorkoutFragment extends Fragment {
         recyclerView.hasFixedSize();
 
         // testing
+
         editText = binding.editText;
         workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
-        workoutViewModel.getSearchedWorkout().observe(getViewLifecycleOwner(), workout -> {
-            //editText.setText(workout.getName());
-            Toast.makeText(getContext(), workout.getName(), Toast.LENGTH_SHORT).show();
-            Log.i("WorkoutFragment", "onCreateView: " + workout.getName());
+        workoutViewModel.searchWorkoutList();
+        workoutViewModel.requestWorkoutList().observeForever(workouts -> {
+            workoutAdapter = new Workout.WorkoutAdapter(workouts);
+            recyclerView.setAdapter(workoutAdapter);
         });
-
-        List<Workout> workouts = new ArrayList<>();//Workout.getWorkouts();
-        workouts.add(new Workout("Workout 1", "Description 1"));
-        workouts.add(new Workout("Workout 2", "Description 2"));
-        workouts.add(new Workout("Workout 3", "Description 3"));
-        workouts.add(new Workout("Workout 4", "Description 4"));
-        workouts.add(new Workout("Workout 5", "Description 5"));
-        workouts.add(new Workout("Workout 6", "Description 6"));
-        workouts.add(new Workout("Workout 7", "Description 7"));
-        workouts.add(new Workout("Workout 8", "Description 8"));
-        workouts.add(new Workout("Workout 9", "Description 9"));
-        workouts.add(new Workout("Workout 10", "Description 10"));
-        workouts.add(new Workout("Workout 11", "Description 11"));
-        workouts.add(new Workout("Workout 12", "Description 12"));
-        workouts.add(new Workout("Workout 13", "Description 13"));
-        workouts.add(new Workout("Workout 14", "Description 14"));
-        workouts.add(new Workout("Workout 15", "Description 15"));
-        workouts.add(new Workout("Workout 16", "Description 16"));
-        workouts.add(new Workout("Workout 17", "Description 17"));
-        workouts.add(new Workout("Workout 18", "Description 18"));
-        workouts.add(new Workout("Workout 19", "Description 19"));
-        workouts.add(new Workout("Workout 20", "Description 20"));
-        workouts.add(new Workout("Workout 21", "Description 21"));
-        workouts.add(new Workout("Workout 22", "Description 22"));
-        workouts.add(new Workout("Workout 23", "Description 23"));
-        workouts.add(new Workout("Workout 24", "Description 24"));
-        workouts.add(new Workout("Workout 25", "Description 25"));
-        workouts.add(new Workout("Workout 26", "Description 26"));
-        workouts.add(new Workout("Workout 27", "Description 27"));
-        workouts.add(new Workout("Workout 28", "Description 28"));
-        workouts.add(new Workout("Workout 29", "Description 29"));
-        workouts.add(new Workout("Workout 30", "Description 30"));
-
-
-        workoutAdapter = new Workout.WorkoutAdapter(workouts);
-        recyclerView.setAdapter(workoutAdapter);
-
 
 
         FloatingActionButton fabHome = binding.fabHome;
@@ -102,6 +69,11 @@ public class WorkoutFragment extends Fragment {
             public void onClick(View v) {
                 //Toast.makeText(getActivity(), "FAB_home clicked", Toast.LENGTH_SHORT).show();
                 searchWorkout(root);
+                /*FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.profileContainer, new ProfileFaceFragment())
+                        .addToBackStack(null)
+                        .setReorderingAllowed(true)
+                        .commit();*/
             }
         });
 
