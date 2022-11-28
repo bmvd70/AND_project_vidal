@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,13 +22,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bumptech.glide.Glide;
-
 public class WorkoutFragment extends Fragment {
 
     private FragmentWorkoutBinding binding;
     RecyclerView recyclerView;
-    WorkoutAdapter workoutAdapter;
+    Workout.WorkoutAdapter workoutAdapter;
     //testing
     private EditText editText;
     private WorkoutViewModel workoutViewModel;
@@ -55,7 +52,8 @@ public class WorkoutFragment extends Fragment {
         editText = binding.editText;
         workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
         workoutViewModel.getSearchedWorkout().observe(getViewLifecycleOwner(), workout -> {
-            editText.setText(workout.getName());
+            //editText.setText(workout.getName());
+            Toast.makeText(getContext(), workout.getName(), Toast.LENGTH_SHORT).show();
             Log.i("WorkoutFragment", "onCreateView: " + workout.getName());
         });
 
@@ -92,7 +90,7 @@ public class WorkoutFragment extends Fragment {
         workouts.add(new Workout("Workout 30", "Description 30"));
 
 
-        workoutAdapter = new WorkoutAdapter(workouts);
+        workoutAdapter = new Workout.WorkoutAdapter(workouts);
         recyclerView.setAdapter(workoutAdapter);
 
 
@@ -102,7 +100,7 @@ public class WorkoutFragment extends Fragment {
         fabHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "FAB_home clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "FAB_home clicked", Toast.LENGTH_SHORT).show();
                 searchWorkout(root);
             }
         });
