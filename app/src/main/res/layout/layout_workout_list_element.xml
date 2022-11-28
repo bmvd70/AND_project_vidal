@@ -21,7 +21,7 @@
         android:contentDescription="@string/content_descriptor_workout_list_image" />
 
     <TextView
-        android:id="@+id/workout_list_element_title"
+        android:id="@+id/workout_list_element_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -42,7 +42,7 @@
         android:text="@string/workout_placeholder_description"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/workout_list_element_image"
-        app:layout_constraintTop_toBottomOf="@+id/workout_list_element_title" />
+        app:layout_constraintTop_toBottomOf="@+id/workout_list_element_name" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

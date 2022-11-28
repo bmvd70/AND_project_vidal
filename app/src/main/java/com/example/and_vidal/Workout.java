@@ -1,20 +1,20 @@
 package com.example.and_vidal;
 
 public class Workout {
-    private String title;
+    private String name;
     private String description;
 
-    public Workout(String title, String description) {
-        this.title = title;
+    public Workout(String name, String description) {
+        this.name = name;
         this.description = description;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String title) {
+        this.name = name;
     }
 
     public String getDescription() {

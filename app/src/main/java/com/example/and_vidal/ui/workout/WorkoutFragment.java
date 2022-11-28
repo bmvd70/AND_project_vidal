@@ -1,9 +1,11 @@
 package com.example.and_vidal.ui.workout;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,23 +23,26 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bumptech.glide.Glide;
+
 public class WorkoutFragment extends Fragment {
 
     private FragmentWorkoutBinding binding;
     RecyclerView recyclerView;
     WorkoutAdapter workoutAdapter;
+    //testing
+    private EditText editText;
+    private WorkoutViewModel workoutViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        WorkoutViewModel workoutViewModel =
-                new ViewModelProvider(this).get(WorkoutViewModel.class);
+        //WorkoutViewModel workoutViewModel =
+              //  new ViewModelProvider(this).get(WorkoutViewModel.class);
         binding = FragmentWorkoutBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -45,6 +50,14 @@ public class WorkoutFragment extends Fragment {
         recyclerView = binding.rv;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.hasFixedSize();
+
+        // testing
+        editText = binding.editText;
+        workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
+        workoutViewModel.getSearchedWorkout().observe(getViewLifecycleOwner(), workout -> {
+            editText.setText(workout.getName());
+            Log.i("WorkoutFragment", "onCreateView: " + workout.getName());
+        });
 
         List<Workout> workouts = new ArrayList<>();//Workout.getWorkouts();
         workouts.add(new Workout("Workout 1", "Description 1"));
@@ -90,12 +103,24 @@ public class WorkoutFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "FAB_home clicked", Toast.LENGTH_SHORT).show();
+                searchWorkout(root);
             }
         });
 
         //final TextView textView = binding.textWorkout;
         //workoutViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
+    }
+
+    public void searchWorkout(View view) {
+        Log.i("WorkoutFragment", "searchWorkout: " + editText.getText().toString() + workoutViewModel.toString());
+        int val = Integer.parseInt(editText.getText().toString());
+        if (val != 0) {
+            Log.i("WorkoutFragment", "searchWorkoutNotNull: " + val);
+            workoutViewModel.searchWorkout(val);
+        }
+        Log.i("WorkoutFragment", "searchWorkoutIsNull: " + val);
+
     }
 
     @Override

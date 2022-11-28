@@ -31,7 +31,7 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.workoutTitle.setText(workouts.get(position).getTitle());
+        holder.workoutName.setText(workouts.get(position).getName());
         holder.workoutDescription.setText(workouts.get(position).getDescription());
     }
 
@@ -41,12 +41,12 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView workoutTitle;
+        TextView workoutName;
         TextView workoutDescription;
         ImageView workoutImage;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            workoutTitle = itemView.findViewById(R.id.workout_list_element_title);
+            workoutName = itemView.findViewById(R.id.workout_list_element_name);
             workoutDescription = itemView.findViewById(R.id.workout_list_element_description);
         }
     }
