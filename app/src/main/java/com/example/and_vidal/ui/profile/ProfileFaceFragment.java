@@ -76,9 +76,11 @@ public class ProfileFaceFragment extends Fragment {
         if (currentUser != null) {
             binding.textLoggedIn.setText(currentUser.getEmail());
             Toast.makeText(getActivity(), currentUser.getEmail() + " is signed in", Toast.LENGTH_SHORT).show();
+            binding.btnLogout.setEnabled(true);
             return true;
         } else {
             binding.textLoggedIn.setText("No user");
+            binding.btnLogout.setEnabled(false);
             return false;
         }
     }

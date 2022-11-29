@@ -37,7 +37,9 @@ public class WorkoutsDAO implements IWorkoutsDAO {
 
     @Override
     public void addWorkout(WorkoutResponse workout) {
-        db.collection("workouts").document(workout.getWorkout().getName()).set(workout.getWorkout()).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("workouts").document(workout.getWorkout().getName())
+                .set(workout.getWorkout())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Log.d("WorkoutsDAO", "Workout added");
