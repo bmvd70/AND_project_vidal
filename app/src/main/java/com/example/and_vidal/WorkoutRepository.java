@@ -9,8 +9,8 @@ import com.example.and_vidal.api.ServiceGenerator;
 import com.example.and_vidal.entities.Workout;
 import com.example.and_vidal.entities.WorkoutResponse;
 import com.example.and_vidal.entities.WorkoutsListResponse;
-import com.example.and_vidal.ui.DAO.IWorkoutsDAO;
-import com.example.and_vidal.ui.DAO.WorkoutsDAO;
+import com.example.and_vidal.DAO.IWorkoutsDAO;
+import com.example.and_vidal.DAO.WorkoutsDAO;
 
 import java.util.ArrayList;
 import java.util.List;

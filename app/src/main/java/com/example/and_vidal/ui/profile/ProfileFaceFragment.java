@@ -1,7 +1,6 @@
-package com.example.and_vidal.ui.profileface;
+package com.example.and_vidal.ui.profile;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.and_vidal.R;
 import com.example.and_vidal.databinding.FragmentProfileFaceBinding;
-import com.example.and_vidal.ui.signin.SignInFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,16 +69,6 @@ public class ProfileFaceFragment extends Fragment {
     public void onResume() {
         super.onResume();
         checkLogin();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
     boolean checkLogin() {

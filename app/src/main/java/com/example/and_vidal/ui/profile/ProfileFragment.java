@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.and_vidal.R;
 import com.example.and_vidal.databinding.FragmentProfileBinding;
-import com.example.and_vidal.ui.profileface.ProfileFaceFragment;
 
 public class ProfileFragment extends Fragment {
 
@@ -26,9 +25,6 @@ public class ProfileFragment extends Fragment {
                 .addToBackStack(null)
                 .setReorderingAllowed(true)
                 .commit();
-
-        //profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
         return root;
     }
 

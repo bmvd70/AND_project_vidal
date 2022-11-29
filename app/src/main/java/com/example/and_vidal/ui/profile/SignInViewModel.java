@@ -1,4 +1,4 @@
-package com.example.and_vidal.ui.signin;
+package com.example.and_vidal.ui.profile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

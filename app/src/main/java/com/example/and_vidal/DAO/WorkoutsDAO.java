@@ -1,4 +1,4 @@
-package com.example.and_vidal.ui.DAO;
+package com.example.and_vidal.DAO;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package com.example.and_vidal.ui.singleworkout;
+package com.example.and_vidal.ui.workout;
 
 import android.os.Bundle;
 
