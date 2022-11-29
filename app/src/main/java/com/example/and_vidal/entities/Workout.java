@@ -100,5 +100,7 @@ public class Workout {
                 workoutDescription = itemView.findViewById(R.id.workout_list_element_description);
             }
         }
+
+
     }
 }

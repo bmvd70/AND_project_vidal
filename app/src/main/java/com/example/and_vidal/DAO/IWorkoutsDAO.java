@@ -11,6 +11,6 @@ public interface IWorkoutsDAO {
     void addWorkout(WorkoutResponse workout);
     void deleteWorkout(WorkoutResponse workout);
     void updateWorkout(WorkoutResponse workout);
-    Workout getWorkout(int id);
+    MutableLiveData<Workout> getWorkout(int id);
     MutableLiveData<List<Workout>> getAllWorkouts();
 }

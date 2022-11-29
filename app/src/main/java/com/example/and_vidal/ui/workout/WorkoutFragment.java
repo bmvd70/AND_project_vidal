@@ -10,6 +10,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.example.and_vidal.databinding.FragmentWorkoutBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class WorkoutFragment extends Fragment {
+    private static final String TAG = "WorkoutFragment";
 
     private FragmentWorkoutBinding binding;
     RecyclerView recyclerView;
@@ -54,19 +56,29 @@ public class WorkoutFragment extends Fragment {
         fabHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchWorkout(root);
+                if (editText.getText().toString().isEmpty()) {
+                    Log.d(TAG, "onClick: editText is empty");
+                } else {
+                    searchWorkout();
+                }
+
             }
         });
         return root;
     }
 
-    public void searchWorkout(View v) {
+    public void searchWorkout() {
         int val = Integer.parseInt(editText.getText().toString());
         if (val != 0) {
-            Log.i("WorkoutFragment", "searchWorkoutNotNull: " + val);
-            workoutViewModel.searchWorkout(val);
+            Log.d(TAG, "searchWorkoutNotZero: " + val);
+            workoutViewModel.getWorkout(val).observeForever(new Observer<Workout>() {
+                @Override
+                public void onChanged(Workout workout) {
+                    Log.d(TAG, "getWorkoutObservedOnChanged: " + workout.getId());
+                }
+            });
+            // open single workout fragment with the workout
         }
-        Log.i("WorkoutFragment", "searchWorkoutIsNull: " + val);
     }
 
     @Override

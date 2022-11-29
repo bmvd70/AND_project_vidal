@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -21,11 +22,14 @@ import java.util.List;
 public class WorkoutsDAO implements IWorkoutsDAO {
     private static WorkoutsDAO instance;
     private final MutableLiveData<List<Workout>> workoutsMutable;
+    private final MutableLiveData<Workout> workoutMutable;
     private final FirebaseFirestore db;
+    private static final String TAG = "WorkoutsDAO";
 
     private WorkoutsDAO() {
         db = FirebaseFirestore.getInstance();
         workoutsMutable = new MutableLiveData<>();
+        workoutMutable = new MutableLiveData<>();
     }
 
     public static WorkoutsDAO getInstance() {
@@ -37,34 +41,75 @@ public class WorkoutsDAO implements IWorkoutsDAO {
 
     @Override
     public void addWorkout(WorkoutResponse workout) {
-        db.collection("workouts").document(workout.getWorkout().getName())
+        db.collection("workouts").document(String.valueOf(workout.getWorkout().getId()))
                 .set(workout.getWorkout())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Log.d("WorkoutsDAO", "Workout added");
+                Log.d(TAG, "Workout added: " + workout.getWorkout().getId());
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w("WorkoutsDAO", "Workout not added");
+                Log.w(TAG, "Workout not added: " + workout.getWorkout().getId(), e);
             }
         });
     }
 
     @Override
     public void deleteWorkout(WorkoutResponse workout) {
-        //TODO
+        db.collection("workouts").document(String.valueOf(workout.getWorkout().getId()))
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG, "Workout deleted");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Workout not deleted");
+            }
+        });
     }
 
     @Override
     public void updateWorkout(WorkoutResponse workout) {
-        //TODO
+        db.collection("workouts").document(String.valueOf(workout.getWorkout().getId()))
+                .set(workout.getWorkout())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG, "Workout updated");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Workout not updated");
+            }
+        });
     }
 
     @Override
-    public Workout getWorkout(int id) {
-        return null;
+    public MutableLiveData<Workout> getWorkout(int id) {
+        db.collection("workouts").document(String.valueOf(id))
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Workout workout = (task.getResult()).toObject(Workout.class);
+                            workoutMutable.setValue(workout);
+                            if (workout.getId() == id) {
+                                Log.d(TAG, "getWorkout retrieved workout with id: " + workout.getId());
+                            } else {
+                                Log.d(TAG, "getWorkout retrieved workout with id: " + workout.getId() + " but was looking for id: " + id);
+                            }
+                        } else {
+                            Log.w(TAG, "get failed with ", task.getException());
+                        }
+                    }
+                });
+        return workoutMutable;
     }
 
     @Override
@@ -76,24 +121,17 @@ public class WorkoutsDAO implements IWorkoutsDAO {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             ArrayList<Workout> workouts = new ArrayList<>();
-                            for(QueryDocumentSnapshot document : task.getResult()) {
+                            int truncateLength = 25;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
                                 Workout workout = document.toObject(Workout.class);
-                                // Modyfiying the description
                                 String local = workout.getDescription();
-                                local = local.replace("<p>.</p>","");
-                                local = local.replace("<p>","");
-                                local = local.replace("</p>","");
-                                local = local.replace("<ul>","");
-
+                                local = (local.length() > truncateLength) ? local.substring(0, truncateLength) : local;
                                 workout.setDescription(local);
-                                if (workout.getId() == 0 || workout.getName() == null || local.trim().isEmpty()) {
-                                    continue;
-                                }
                                 workouts.add(workout);
                             }
                             workoutsMutable.postValue(workouts);
-                        }else {
-                            Log.d("WorkoutsDAO", "Error getting documents: ", task.getException());
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });

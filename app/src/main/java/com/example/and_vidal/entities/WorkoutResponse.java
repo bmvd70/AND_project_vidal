@@ -8,9 +8,11 @@ public class WorkoutResponse {
     private final String name;
     private final String description;
     private final int id;
+    private static final String TAG = "WorkoutResponse";
+
 
     public WorkoutResponse(String name, String description, int id) {
-        Log.i("WorkoutResponse", "WorkoutResponse: " + name + " " + description);
+        Log.d(TAG, "WorkoutResponse: " + name + " " + description);
         this.name = name;
         this.description = description;
         this.id = id;
@@ -19,5 +21,4 @@ public class WorkoutResponse {
     public Workout getWorkout() {
         return new Workout(name, description, id);
     }
-
 }

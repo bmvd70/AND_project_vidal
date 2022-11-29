@@ -22,11 +22,9 @@ import retrofit2.internal.EverythingIsNonNull;
 
 public class WorkoutRepository {
     private static WorkoutRepository instance;
-    private final MutableLiveData<Workout> searchedWorkout;
     private final IWorkoutsDAO workoutsDAO;
 
     private WorkoutRepository() {
-        searchedWorkout = new MutableLiveData<>();
         workoutsDAO = WorkoutsDAO.getInstance();
     }
 
@@ -37,27 +35,8 @@ public class WorkoutRepository {
         return instance;
     }
 
-    public LiveData<Workout> getSearchedWorkout() {
-        return searchedWorkout;
-    }
-
-    public void searchWorkoutById(int id) {
-        ServiceGenerator.getWorkoutApi().getWorkout(id).enqueue(new Callback<WorkoutResponse>() {
-            @Override
-            @EverythingIsNonNull
-            public void onResponse(Call<WorkoutResponse> call, Response<WorkoutResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    searchedWorkout.setValue(response.body().getWorkout());
-                    Log.i("WorkoutRepository", "onSuccess: " + response.body().getWorkout());
-                }
-            }
-
-            @Override
-            @EverythingIsNonNull
-            public void onFailure(Call<WorkoutResponse> call, Throwable t) {
-                Log.e("WorkoutRepository", "onFailure: ", t);
-            }
-        });
+    public LiveData<Workout> getWorkout(int id) {
+        return workoutsDAO.getWorkout(id);
     }
 
     public void requestWorkoutList() {
@@ -66,7 +45,7 @@ public class WorkoutRepository {
             @EverythingIsNonNull
             public void onResponse(Call<WorkoutsListResponse> call, Response<WorkoutsListResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Log.i("WorkoutRepository_requestWorkoutList",
+                    Log.d("WorkoutRepository_requestWorkoutList",
                             "onSuccess: " + response.body().getResults());
                     saveToDb(response.body().getResults());
                 }
@@ -86,7 +65,27 @@ public class WorkoutRepository {
 
     private void saveToDb(ArrayList<WorkoutResponse> workouts) {
         for(WorkoutResponse item : workouts) {
-            workoutsDAO.addWorkout(item);
+            Workout workout = item.getWorkout();
+            // Modifying the description, here a replace on each is more
+            // effective in the small amount of data that we have,
+            // Aho-Corasick Algorithm would be better for a larger amount of data
+            String local = workout.getDescription()
+                    .replace("<p>.</p>","")
+                    .replace("<p>","")
+                    .replace("</p>","")
+                    .replace("<ul>","")
+                    .replace("</ul>","")
+                    .replace("<ol>","")
+                    .replace("</ol>","")
+                    .replace("<li>","")
+                    .replace("</li>","")
+                    .trim();
+            // Only load data that is complete since some of the api data is not complete
+            if (workout.getId() == 0 || workout.getName().isEmpty()
+                    || local.isEmpty() || local.length() < 5) {
+                continue;
+            }
+            workoutsDAO.addWorkout(new WorkoutResponse(workout.getName(), local, workout.getId()));
         }
     }
 }
