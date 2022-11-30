@@ -99,6 +99,7 @@ public class WorkoutsDAO implements IWorkoutsDAO {
                         if (task.isSuccessful()) {
                             Workout workout = (task.getResult()).toObject(Workout.class);
                             workoutMutable.setValue(workout);
+                            assert workout != null;
                             if (workout.getId() == id) {
                                 Log.d(TAG, "getWorkout retrieved workout with id: " + workout.getId());
                             } else {

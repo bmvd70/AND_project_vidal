@@ -9,7 +9,11 @@
         android:id="@+id/navigation_workout"
         android:name="com.example.and_vidal.ui.workout.WorkoutFragment"
         android:label="@string/title_workout"
-        tools:layout="@layout/fragment_workout" />
+        tools:layout="@layout/fragment_workout" >
+        <action
+            android:id="@+id/action_navigation_workout_to_navigation_single_workout"
+            app:destination="@id/navigation_single_workout" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_tabata"
@@ -33,6 +37,34 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.and_vidal.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile_face" />
+        tools:layout="@layout/fragment_profile_face" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_signin"
+            app:destination="@id/navigation_signin" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_signin"
+        android:name="com.example.and_vidal.ui.profile.SignInFragment"
+        android:label="@string/title_signin"
+        tools:layout="@layout/fragment_signin" >
+        <action
+            android:id="@+id/action_navigation_signin_to_navigation_signup"
+            app:destination="@id/navigation_signup" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_signup"
+        android:name="com.example.and_vidal.ui.profile.SignUpFragment"
+        android:label="@string/title_signup"
+        tools:layout="@layout/fragment_signup" />
+
+    <fragment
+        android:id="@+id/navigation_single_workout"
+        android:name="com.example.and_vidal.ui.workout.SingleWorkoutFragment"
+        android:label="@string/title_single_workout"
+        tools:layout="@layout/fragment_single_workout" />
+
+
 
 </navigation>

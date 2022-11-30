@@ -58,15 +58,12 @@ public class SignInFragment extends Fragment {
             }
         });*/
 
-        gotoSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.profileContainer, new SignUpFragment())
-                        .addToBackStack(null)
-                        .setReorderingAllowed(true)
-                        .commit();
-            }
+        gotoSignup.setOnClickListener(v -> {
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.profileContainer, new SignUpFragment())
+                    .addToBackStack(null)
+                    .setReorderingAllowed(true)
+                    .commit();
         });
 
         btnSignin.setOnClickListener(new View.OnClickListener() {
@@ -96,12 +93,7 @@ public class SignInFragment extends Fragment {
             }
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goBack();
-            }
-        });
+        btnBack.setOnClickListener(v -> goBack());
         return root;
     }
 

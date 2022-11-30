@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import com.example.and_vidal.R;
 import com.example.and_vidal.databinding.FragmentProfileFaceBinding;
@@ -38,6 +39,8 @@ public class ProfileFaceFragment extends Fragment {
                 if (checkLogin()) {
                     Toast.makeText(getContext(), "You are already logged in", Toast.LENGTH_SHORT).show();
                 } else {
+                    //Navigation.findNavController(v).navigate(R.id.action_navigation_profile_to_signInFragment);
+
                     FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                     transaction.replace(R.id.profileContainer, new SignInFragment())
                             .addToBackStack(null)

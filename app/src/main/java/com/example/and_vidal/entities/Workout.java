@@ -1,6 +1,8 @@
 package com.example.and_vidal.entities;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.and_vidal.R;
@@ -26,7 +30,9 @@ public class Workout {
     }
 
     public Workout() {
-
+        this.name = "";
+        this.description = "";
+        this.id = 0;
     }
 
     public int getId() {
@@ -53,6 +59,7 @@ public class Workout {
         this.description = description;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Workout{" +
@@ -63,14 +70,14 @@ public class Workout {
     }
 
     public static class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHolder> {
-
-        List<Workout> workouts;
-
+        private final List<Workout> workouts;
+        private final static String TAG = "WorkoutAdapter";
 
         public WorkoutAdapter(List<Workout> workouts) {
             this.workouts = workouts;
         }
 
+        @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -82,7 +89,8 @@ public class Workout {
         public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
             holder.workoutName.setText(workouts.get(position).getName());
             holder.workoutDescription.setText(workouts.get(position).getDescription());
-            System.out.println(workouts.get(position).getName());
+            Log.d(TAG, workouts.get(position).getName());
+            holder.displaySingleWorkout(position);
         }
 
         @Override
@@ -91,13 +99,28 @@ public class Workout {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView workoutName;
-            TextView workoutDescription;
+            TextView workoutName, workoutDescription, workoutId;
             ImageView workoutImage;
+            ConstraintLayout workoutLayout;
+
+
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
+                workoutLayout = itemView.findViewById(R.id.workout_list_element);
                 workoutName = itemView.findViewById(R.id.workout_list_element_name);
                 workoutDescription = itemView.findViewById(R.id.workout_list_element_description);
+            }
+
+            public void displaySingleWorkout(int position) {
+                this.workoutLayout.setOnClickListener(v -> {
+                    int workoutId = workouts.get(position).getId();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("workoutId", workoutId);
+                    Log.d(TAG, "Clicked on " + workoutId);
+                    Navigation.findNavController(v)
+                            .navigate(R.id.action_navigation_workout_to_navigation_single_workout,
+                                    bundle);
+                });
             }
         }
 

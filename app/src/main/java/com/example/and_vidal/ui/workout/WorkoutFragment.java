@@ -10,7 +10,6 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,16 +52,11 @@ public class WorkoutFragment extends Fragment {
 
         FloatingActionButton fabHome = binding.fabHome;
 
-        fabHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (editText.getText().toString().isEmpty()) {
-                    Log.d(TAG, "onClick: editText is empty");
-                } else {
-                    searchWorkout();
-                }
-
-            }
+        fabHome.setOnClickListener(v -> {
+            if (editText.getText().toString().isEmpty())
+                Log.d(TAG, "onClick: editText is empty");
+            else
+                searchWorkout();
         });
         return root;
     }
@@ -71,13 +65,8 @@ public class WorkoutFragment extends Fragment {
         int val = Integer.parseInt(editText.getText().toString());
         if (val != 0) {
             Log.d(TAG, "searchWorkoutNotZero: " + val);
-            workoutViewModel.getWorkout(val).observeForever(new Observer<Workout>() {
-                @Override
-                public void onChanged(Workout workout) {
-                    Log.d(TAG, "getWorkoutObservedOnChanged: " + workout.getId());
-                }
-            });
-            // open single workout fragment with the workout
+            workoutViewModel.getWorkout(val).observeForever(workout ->
+                    Log.d(TAG, "getWorkoutObservedOnChanged: " + workout.getId()));
         }
     }
 

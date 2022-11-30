@@ -56,6 +56,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.23"
         tools:srcCompat="@drawable/ic_baseline_person_196"
-        android:contentDescription="@string/content_descriptor_profile_picture_image" />
+        android:contentDescription="@string/content_descriptor_profile_picture" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
