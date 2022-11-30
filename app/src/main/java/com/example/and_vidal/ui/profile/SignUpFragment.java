@@ -39,7 +39,6 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        //FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     @Override
@@ -50,39 +49,31 @@ public class SignUpFragment extends Fragment {
         Button btnSignup = (Button) binding.btnSignup;
         ImageButton btnBack = (ImageButton) binding.btnSuBack;
 
-        btnSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextView edPassword = binding.suPassword;
-                TextView edEmail = binding.suEmail;
-                String email = edEmail.getText().toString().trim();
-                String password = edPassword.getText().toString().trim();
+        btnSignup.setOnClickListener(v -> {
+            TextView edPassword = binding.suPassword;
+            TextView edEmail = binding.suEmail;
+            String email = edEmail.getText().toString().trim();
+            String password = edPassword.getText().toString().trim();
 
-                if (email.isEmpty()) {
-                    edEmail.setError("Email is required!");
-                    edEmail.requestFocus();
-                    return;
-                }
-                if (password.isEmpty()) {
-                    edPassword.setError("Password is required!");
-                    edPassword.requestFocus();
-                    return;
-                }
-                if (edPassword.length() < 6) {
-                    edPassword.setError("Password must be at least 6 characters long.");
-                    edPassword.requestFocus();
-                    return;
-                }
-                signUp();
+            if (email.isEmpty()) {
+                edEmail.setError("Email is required!");
+                edEmail.requestFocus();
+                return;
             }
+            if (password.isEmpty()) {
+                edPassword.setError("Password is required!");
+                edPassword.requestFocus();
+                return;
+            }
+            if (edPassword.length() < 6) {
+                edPassword.setError("Password must be at least 6 characters long.");
+                edPassword.requestFocus();
+                return;
+            }
+            signUp();
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goBack();
-            }
-        });
+        btnBack.setOnClickListener(v -> requireActivity().onBackPressed());
         return root;
     }
 
@@ -103,7 +94,7 @@ public class SignUpFragment extends Fragment {
                             FirebaseUser user = mAuth.getCurrentUser();
                             assert user != null;
                             Toast.makeText(getActivity(), user.getEmail() + " was signed up!", Toast.LENGTH_SHORT).show();
-                            goBack();
+                            requireActivity().onBackPressed();
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -113,13 +104,5 @@ public class SignUpFragment extends Fragment {
                         }
                     }
                 });
-    }
-
-    void goBack() {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.profileContainer, new SignInFragment())
-                .addToBackStack(null)
-                .setReorderingAllowed(true)
-                .commit();
     }
 }

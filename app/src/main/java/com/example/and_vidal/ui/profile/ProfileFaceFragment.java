@@ -6,10 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
 import com.example.and_vidal.R;
@@ -33,30 +31,16 @@ public class ProfileFaceFragment extends Fragment {
         Button btnLogout = binding.btnLogout;
         mAuth = FirebaseAuth.getInstance();
 
-        fabProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkLogin()) {
-                    Toast.makeText(getContext(), "You are already logged in", Toast.LENGTH_SHORT).show();
-                } else {
-                    //Navigation.findNavController(v).navigate(R.id.action_navigation_profile_to_signInFragment);
-
-                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                    transaction.replace(R.id.profileContainer, new SignInFragment())
-                            .addToBackStack(null)
-                            .setReorderingAllowed(true)
-                            .commit();
-                }
-
-            }
+        fabProfile.setOnClickListener(v -> {
+            if (checkLogin())
+                Toast.makeText(getContext(), "You are already logged in", Toast.LENGTH_SHORT).show();
+            else
+                Navigation.findNavController(v).navigate(R.id.action_navigation_profile_to_navigation_signin);
         });
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                checkLogin();
-            }
+        btnLogout.setOnClickListener(v -> {
+            mAuth.signOut();
+            checkLogin();
         });
 
         return root;
