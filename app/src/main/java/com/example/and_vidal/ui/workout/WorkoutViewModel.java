@@ -21,11 +21,11 @@ public class WorkoutViewModel extends ViewModel {
         return repository.getWorkout(id);
     }
 
-    public void searchWorkoutList() {
+    public void requestWorkoutList() {
         repository.requestWorkoutList();
     }
 
-    public MutableLiveData<List<Workout>> requestWorkoutList() {
+    public MutableLiveData<List<Workout>> getWorkoutList() {
         return repository.getAllWorkouts();
     }
 

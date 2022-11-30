@@ -44,8 +44,7 @@
     <string name="content_descriptor_workout_list_image">Workout list image</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
+    <string name="workout_placeholder_id">987</string>
 
 
 </resources>

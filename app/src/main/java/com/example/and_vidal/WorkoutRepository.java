@@ -78,7 +78,10 @@ public class WorkoutRepository {
                     .replace("<ol>","")
                     .replace("</ol>","")
                     .replace("<li>","")
-                    .replace("</li>","")
+                    .replace("</li>","\n")
+                    .replace("<em>","")
+                    .replace("</em>","")
+                    .replace("-","")
                     .trim();
             // Only load data that is complete since some of the api data is not complete
             if (workout.getId() == 0 || workout.getName().isEmpty()

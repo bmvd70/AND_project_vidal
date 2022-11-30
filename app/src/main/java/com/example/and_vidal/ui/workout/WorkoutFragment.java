@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +24,6 @@ public class WorkoutFragment extends Fragment {
     RecyclerView recyclerView;
     Workout.WorkoutAdapter workoutAdapter;
 
-    private EditText editText;
     private WorkoutViewModel workoutViewModel;
 
     @Override
@@ -38,36 +36,37 @@ public class WorkoutFragment extends Fragment {
         binding = FragmentWorkoutBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        FloatingActionButton fabHome = binding.fabHome;
+
         recyclerView = binding.rv;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.hasFixedSize();
 
-        editText = binding.editText;
         workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
-        workoutViewModel.searchWorkoutList();
-        workoutViewModel.requestWorkoutList().observeForever(workouts -> {
+        // Call API and feed missing entries into DB
+        workoutViewModel.requestWorkoutList();
+        // Get from DB
+        workoutViewModel.getWorkoutList().observeForever(workouts -> {
             workoutAdapter = new Workout.WorkoutAdapter(workouts);
             recyclerView.setAdapter(workoutAdapter);
         });
 
-        FloatingActionButton fabHome = binding.fabHome;
-
-        fabHome.setOnClickListener(v -> {
-            if (editText.getText().toString().isEmpty())
-                Log.d(TAG, "onClick: editText is empty");
-            else
-                searchWorkout();
-        });
+        fabHome.setOnClickListener(v -> Log.d(TAG, "onClick: editText is empty"));
         return root;
     }
 
     public void searchWorkout() {
-        int val = Integer.parseInt(editText.getText().toString());
+        int val = 0;
         if (val != 0) {
             Log.d(TAG, "searchWorkoutNotZero: " + val);
             workoutViewModel.getWorkout(val).observeForever(workout ->
                     Log.d(TAG, "getWorkoutObservedOnChanged: " + workout.getId()));
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

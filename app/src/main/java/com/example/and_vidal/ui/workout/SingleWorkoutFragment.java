@@ -12,10 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.and_vidal.R;
 import com.example.and_vidal.databinding.FragmentSingleWorkoutBinding;
-
-import java.util.Objects;
 
 public class SingleWorkoutFragment extends Fragment {
     private static final String TAG = "SingleWorkoutFragment";
@@ -35,10 +32,15 @@ public class SingleWorkoutFragment extends Fragment {
         View root = binding.getRoot();
         ImageButton btnBack = (ImageButton) binding.btnBack;
         TextView tvWorkoutId = (TextView) binding.singleWorkoutId;
+        TextView tvWorkoutName = (TextView) binding.singleWorkoutName;
+        TextView tvWorkoutDescription = (TextView) binding.singleWorkoutDescription;
 
         if (this.getArguments() != null) {
             Bundle bundle = this.getArguments();
             workoutId = bundle.getInt("workoutId");
+            tvWorkoutId.setText(String.valueOf(workoutId));
+            tvWorkoutName.setText(bundle.getString("workoutName"));
+            tvWorkoutDescription.setText(bundle.getString("workoutDescription"));
             Log.d(TAG, "onCreateView: " + workoutId);
         }
 

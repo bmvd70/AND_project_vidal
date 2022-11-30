@@ -23,25 +23,36 @@
 
     <TextView
         android:id="@+id/workout_list_element_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="74dp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/text_on_surface"
         android:text="@string/workout_placeholder_name"
-        android:textSize="32sp"
+        android:textColor="@color/text_on_surface"
+        android:textSize="28sp"
         android:textStyle="bold"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.077"
         app:layout_constraintStart_toEndOf="@+id/workout_list_element_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/workout_list_element_description"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:textColor="@color/text_on_surface"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="74dp"
+
         android:text="@string/workout_placeholder_description"
+        android:textColor="@color/text_on_surface"
         android:textSize="24sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toEndOf="@+id/workout_list_element_image"
         app:layout_constraintTop_toBottomOf="@+id/workout_list_element_name" />
 

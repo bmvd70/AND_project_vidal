@@ -116,6 +116,9 @@ public class Workout {
                     int workoutId = workouts.get(position).getId();
                     Bundle bundle = new Bundle();
                     bundle.putInt("workoutId", workoutId);
+                    bundle.putString("workoutName", workouts.get(position).getName());
+                    bundle.putString("workoutDescription", workouts.get(position).getDescription());
+
                     Log.d(TAG, "Clicked on " + workoutId);
                     Navigation.findNavController(v)
                             .navigate(R.id.action_navigation_workout_to_navigation_single_workout,
