@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.and_vidal.ILoginHandler;
+import com.example.and_vidal.LoginHandler;
 import com.example.and_vidal.R;
 import com.example.and_vidal.databinding.FragmentSignupBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,12 +30,12 @@ public class SignUpFragment extends Fragment {
 
     private FragmentSignupBinding binding;
     private static final String TAG = "ProfileFragment";
-    private FirebaseAuth mAuth;
+    ILoginHandler loginHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
+        loginHandler = LoginHandler.getInstance();
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.and_vidal.ILoginHandler;
+import com.example.and_vidal.LoginHandler;
 import com.example.and_vidal.entities.Workout;
 import com.example.and_vidal.databinding.FragmentWorkoutBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,6 +26,7 @@ public class WorkoutFragment extends Fragment {
     private FragmentWorkoutBinding binding;
     RecyclerView recyclerView;
     Workout.WorkoutAdapter workoutAdapter;
+    ILoginHandler loginHandler;
 
     private WorkoutViewModel workoutViewModel;
 
@@ -35,21 +39,28 @@ public class WorkoutFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentWorkoutBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        loginHandler = LoginHandler.getInstance();
 
         FloatingActionButton fabHome = binding.fabHome;
 
-        recyclerView = binding.rv;
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.hasFixedSize();
+        if (loginHandler.getCurrentUser() == null) {
+            Toast.makeText(getContext(), "Please login to use this feature", Toast.LENGTH_SHORT).show();
+            fabHome.setVisibility(View.GONE);
+        } else {
+            fabHome.setVisibility(View.VISIBLE);
+            recyclerView = binding.rv;
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.hasFixedSize();
 
-        workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
-        // Call API and feed missing entries into DB
-        workoutViewModel.requestWorkoutList();
-        // Get from DB
-        workoutViewModel.getWorkoutList().observeForever(workouts -> {
-            workoutAdapter = new Workout.WorkoutAdapter(workouts);
-            recyclerView.setAdapter(workoutAdapter);
-        });
+            workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
+            // Call API and feed missing entries into DB
+            workoutViewModel.requestWorkoutList();
+            // Get from DB
+            workoutViewModel.getWorkoutList().observeForever(workouts -> {
+                workoutAdapter = new Workout.WorkoutAdapter(workouts);
+                recyclerView.setAdapter(workoutAdapter);
+            });
+        }
 
         fabHome.setOnClickListener(v -> Log.d(TAG, "onClick: editText is empty"));
         return root;

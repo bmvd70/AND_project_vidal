@@ -56,4 +56,10 @@ public class SingleWorkoutFragment extends Fragment {
         Log.d(TAG, "onCreateView: " + workoutId);
         return root;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }
