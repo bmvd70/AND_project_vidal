@@ -1,22 +1,21 @@
 <resources>
     <string name="app_name">Work-it-out</string>
     <!-- WorkoutFragment -->
-    <string name="title_workout">Workout</string>
-
+    <string name="title_workout">WORKOUT</string>
     <string name="title_single_workout">Single Workout Title</string>
 
 
     <!-- TabataFragment -->
-    <string name="title_tabata">Tabata</string>
+    <string name="title_tabata">TABATA</string>
 
     <!-- NutritionFragment -->
-    <string name="title_nutrition">Nutrition</string>
+    <string name="title_nutrition">NUTRITION</string>
 
     <!--StatsFragment -->
-    <string name="title_stats">Stats</string>
+    <string name="title_stats">STATS</string>
 
     <!-- ProfileFragment -->
-    <string name="title_profile">Profile</string>
+    <string name="title_profile">PROFILE</string>
     <string name="user_placeholder">User</string>
     <string name="btn_logout">Logout</string>
     <string name="content_descriptor_profile_picture">Profile picture image</string>
@@ -40,11 +39,12 @@
     <string name="hint_email">Enter email</string>
     <string name="hint_password">Enter password</string>
     <string name="workout_placeholder_name">Workout Name</string>
-    <string name="workout_placeholder_description">Workout Description</string>
+    <string name="workout_placeholder_description">Workout Description\nFirst you have to do...\nThen repeat..\And another set of...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\nTest</string>
     <string name="content_descriptor_workout_list_image">Workout list image</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="workout_placeholder_id">987</string>
+    <string name="workout_category">Workout Category</string>
 
 
 </resources>

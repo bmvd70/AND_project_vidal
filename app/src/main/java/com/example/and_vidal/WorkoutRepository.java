@@ -71,6 +71,7 @@ public class WorkoutRepository {
             // Aho-Corasick Algorithm would be better for a larger amount of data
             String local = workout.getDescription()
                     .replace("<p>.</p>","")
+                    .replace("<p style=\"\">","")
                     .replace("<p>","")
                     .replace("</p>","")
                     .replace("<ul>","")
@@ -84,11 +85,13 @@ public class WorkoutRepository {
                     .replace("-","")
                     .trim();
             // Only load data that is complete since some of the api data is not complete
-            if (workout.getId() == 0 || workout.getName().isEmpty()
-                    || local.isEmpty() || local.length() < 5) {
+            // Category 8 to 15 are the only valid ones in the API
+            if ((workout.getId() == 0 || workout.getName().isEmpty()
+                    || local.isEmpty() || local.length() < 5 )
+                    && workout.getCategory() >= 8 && workout.getCategory() <= 15) {
                 continue;
             }
-            workoutsDAO.addWorkout(new WorkoutResponse(workout.getName(), local, workout.getId()));
+            workoutsDAO.addWorkout(new WorkoutResponse(workout.getName(), local, workout.getId(), workout.getCategory()));
         }
     }
 }

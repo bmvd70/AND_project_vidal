@@ -8,6 +8,19 @@
     android:background="@color/bg">
 
     <TextView
+        android:id="@+id/single_workout_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/title_tabata"
+        android:textColor="@color/text_on_surface"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/text_tabata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

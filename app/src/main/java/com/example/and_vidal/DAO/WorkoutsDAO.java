@@ -84,14 +84,8 @@ public class WorkoutsDAO implements IWorkoutsDAO {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         ArrayList<Workout> workouts = new ArrayList<>();
-                        //int truncateLength = 25;
-
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Workout workout = document.toObject(Workout.class);
-
-                            /*if (workout.getName().length() > truncateLength) {
-                                workout.setName(workout.getName().substring(0, truncateLength) + "...");
-                            }*/
                             workouts.add(workout);
                         }
                         workoutsMutable.postValue(workouts);

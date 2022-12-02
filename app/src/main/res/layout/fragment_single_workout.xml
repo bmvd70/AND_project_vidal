@@ -32,6 +32,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/single_workout_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/workout_category"
+        android:textColor="@color/text_on_surface"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
@@ -63,13 +76,15 @@
     <TextView
         android:id="@+id/single_workout_description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="274dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
+        android:textSize="22sp"
         android:textColor="@color/text_on_surface"
         android:text="@string/workout_placeholder_description"
+        android:scrollbars = "vertical"
         app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/single_workout_name"

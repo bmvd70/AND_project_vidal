@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.and_vidal.databinding.FragmentSingleWorkoutBinding;
+import com.example.and_vidal.entities.WorkoutCategory;
 
 public class SingleWorkoutFragment extends Fragment {
     private static final String TAG = "SingleWorkoutFragment";
@@ -30,10 +32,12 @@ public class SingleWorkoutFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentSingleWorkoutBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        ImageButton btnBack = (ImageButton) binding.btnBack;
-        TextView tvWorkoutId = (TextView) binding.singleWorkoutId;
-        TextView tvWorkoutName = (TextView) binding.singleWorkoutName;
-        TextView tvWorkoutDescription = (TextView) binding.singleWorkoutDescription;
+        ImageButton btnBack = binding.btnBack;
+        TextView tvWorkoutId = binding.singleWorkoutId;
+        TextView tvWorkoutName = binding.singleWorkoutName;
+        TextView tvWorkoutDescription = binding.singleWorkoutDescription;
+        TextView tvWorkoutCategory = binding.singleWorkoutCategory;
+        tvWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
 
         if (this.getArguments() != null) {
             Bundle bundle = this.getArguments();
@@ -41,6 +45,7 @@ public class SingleWorkoutFragment extends Fragment {
             tvWorkoutId.setText(String.valueOf(workoutId));
             tvWorkoutName.setText(bundle.getString("workoutName"));
             tvWorkoutDescription.setText(bundle.getString("workoutDescription"));
+            tvWorkoutCategory.setText(WorkoutCategory.getName(bundle.getInt("workoutCategory")));
             Log.d(TAG, "onCreateView: " + workoutId);
         }
 

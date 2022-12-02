@@ -12,7 +12,7 @@ public interface WorkoutApi {
     @GET("api/v2/exercise/{id}")
     Call<WorkoutResponse> getWorkout(@Path("id") int id);
 
-    @GET("api/v2/exercise/?language=2&limit=50")
+    @GET("api/v2/exercise/?language=2&limit=60")
     Call<WorkoutsListResponse> getWorkouts();
 
 }
