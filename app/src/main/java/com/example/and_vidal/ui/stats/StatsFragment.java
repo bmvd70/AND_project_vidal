@@ -29,14 +29,12 @@ public class StatsFragment extends Fragment {
         View root = binding.getRoot();
 
         FloatingActionButton fabStats = binding.fabStats;
+        fabStats.setEnabled(false);
+        fabStats.setOnClickListener(v ->
+                Toast.makeText(getActivity(), "Stats", Toast.LENGTH_SHORT).show());
 
-        fabStats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Stats", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        final TextView textView = binding.textStats;
+        statsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

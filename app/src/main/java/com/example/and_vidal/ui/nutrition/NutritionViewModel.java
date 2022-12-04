@@ -10,7 +10,7 @@ public class NutritionViewModel extends ViewModel {
 
     public NutritionViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is nutrition fragment");
+        mText.setValue("Feature nutrition\ncoming in next update");
     }
 
     public LiveData<String> getText() {

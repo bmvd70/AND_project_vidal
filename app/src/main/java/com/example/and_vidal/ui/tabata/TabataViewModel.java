@@ -10,7 +10,7 @@ public class TabataViewModel extends ViewModel {
 
     public TabataViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is tabata fragment");
+        mText.setValue("Feature tabata\ncoming in next update");
     }
 
     public LiveData<String> getText() {

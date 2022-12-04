@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.and_vidal.entities.Workout;
-import com.example.and_vidal.WorkoutRepository;
+import com.example.and_vidal.repo.WorkoutRepository;
 
 import java.util.List;
 
 public class WorkoutViewModel extends ViewModel {
 
-    WorkoutRepository repository;
+    private final WorkoutRepository repository;
 
     public WorkoutViewModel() {
         repository = WorkoutRepository.getInstance();

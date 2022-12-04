@@ -26,13 +26,9 @@ public class TabataFragment extends Fragment {
         View root = binding.getRoot();
 
         FloatingActionButton fabTabata = binding.fabTabata;
-
-        fabTabata.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "FAB_tabata clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
+        fabTabata.setEnabled(false);
+        fabTabata.setOnClickListener(v ->
+                Toast.makeText(getActivity(), "FAB_tabata clicked", Toast.LENGTH_SHORT).show());
 
         final TextView textView = binding.textTabata;
         tabataViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);

@@ -26,13 +26,9 @@ public class NutritionFragment extends Fragment {
         View root = binding.getRoot();
 
         FloatingActionButton fabNutrition = binding.fabNutrition;
-
-        fabNutrition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "FAB_nurt was clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
+        fabNutrition.setEnabled(false);
+        fabNutrition.setOnClickListener(v ->
+                Toast.makeText(getActivity(), "FAB_nurt was clicked", Toast.LENGTH_SHORT).show());
 
         final TextView textView = binding.textNutrition;
         nutritionViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
