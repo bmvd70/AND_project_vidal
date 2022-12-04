@@ -18,8 +18,8 @@ There are a lot of fitness apps out there but they often just fulfill a specific
 - [ ] As a user I want to be able to use the tabata clock
 - [ ] As a user I want to be able to filter workouts by category
 - [ ] As a user I want to be able to track and display my weight 
-- [ ] As a user I want to have a sleek design, material m3, dark
-- [ ] As a user I want to navigate between subjects with ease and intuition
+- [x] As a user I want to have a sleek design, material m3, dark
+- [x] As a user I want to navigate between subjects with ease and intuition
 
 
 ## Video:
