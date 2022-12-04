@@ -29,5 +29,9 @@ public class WorkoutViewModel extends ViewModel {
         return repository.getAllWorkouts();
     }
 
+    public void updateWorkoutList(int type) {
+        repository.updateWorkoutList(type);
+    }
+
 
 }

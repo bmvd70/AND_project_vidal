@@ -14,6 +14,7 @@ import com.example.and_vidal.DAO.WorkoutsDAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,5 +94,9 @@ public class WorkoutRepository {
             }
             workoutsDAO.addWorkout(new WorkoutResponse(workout.getName(), local, workout.getId(), workout.getCategory()));
         }
+    }
+
+    public void updateWorkoutList(int type) {
+        workoutsDAO.updateWorkoutList(type);
     }
 }

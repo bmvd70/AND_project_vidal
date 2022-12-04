@@ -27,7 +27,6 @@ import com.example.and_vidal.databinding.FragmentProfileBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.Objects;
 
@@ -82,8 +81,10 @@ public class ProfileFragment extends Fragment {
                         Uri selectedImage = data.getData();
                         if (selectedImage != null) {
                             ivProfile.setImageURI(selectedImage);
+                            Log.d(TAG, "Image: " + selectedImage);
                             // temporary solution: save the uri as shared preference
                             sharedPreferences.edit().putString("profileImage_" + Objects.requireNonNull(mAuth.getCurrentUser()).getEmail(), selectedImage.toString()).apply();
+                            Log.d(TAG, "Image: " + selectedImage.toString());
                             //uploadImage(selectedImage);
                             /*
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -104,7 +105,7 @@ public class ProfileFragment extends Fragment {
 
         fabProfile.setOnClickListener(v -> {
             if (checkLogin()) {
-                // TODO: intent for selecting a picture from gallery
+                // intent for selecting a picture from gallery
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 activityResultLauncher.launch(intent);
@@ -121,10 +122,10 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
-    /*
-    private void uploadImage(Uri selectedImage) {
-        profileViewModel.uploadProfilePicture(selectedImage);
-    }*/
+
+    //private void uploadImage(Uri selectedImage) {
+    //    profileViewModel.uploadProfilePicture(selectedImage);
+    //}
 
     @SuppressLint("SetTextI18n")
     private boolean checkLogin() {
@@ -134,7 +135,8 @@ public class ProfileFragment extends Fragment {
             btnLogout.setEnabled(true);
             fabProfile.setImageResource(R.drawable.ic_baseline_image_search_24);
             if (sharedPreferences.getString("profileImage_" + currentUser.getEmail(), null) != null) {
-                ivProfile.setImageURI(Uri.parse(sharedPreferences.getString("profileImage_" + currentUser.getEmail(), null)));
+                Log.d(TAG, "checkLogin: " + Uri.parse(sharedPreferences.getString("profileImage_" + currentUser.getEmail(), null)));
+                //ivProfile.setImageURI(Uri.parse(sharedPreferences.getString("profileImage_" + currentUser.getEmail(), null)));
             }
             //if (currentUser.getPhotoUrl() != null) {
             //    ivProfile.setImageURI(currentUser.getPhotoUrl());

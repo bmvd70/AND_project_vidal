@@ -10,6 +10,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class WorkoutsDAO implements IWorkoutsDAO {
     private static WorkoutsDAO instance;
@@ -94,5 +95,14 @@ public class WorkoutsDAO implements IWorkoutsDAO {
                     }
                 });
         return workoutsMutable;
+    }
+
+    @Override
+    public void updateWorkoutList(int type) {
+        if (type == 0)
+            getAllWorkouts();
+        else
+            Objects.requireNonNull(workoutsMutable.getValue()).removeIf(workout ->
+                workout.getCategory() != type);
     }
 }

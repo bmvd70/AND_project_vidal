@@ -24,11 +24,12 @@ public class WorkoutFragment extends Fragment {
     private static final String TAG = "WorkoutFragment";
 
     private FragmentWorkoutBinding binding;
-    RecyclerView recyclerView;
-    Workout.WorkoutAdapter workoutAdapter;
-    ILoginHandler loginHandler;
-
+    private RecyclerView recyclerView;
+    private Workout.WorkoutAdapter workoutAdapter;
+    private ILoginHandler loginHandler;
     private WorkoutViewModel workoutViewModel;
+
+    private int type = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class WorkoutFragment extends Fragment {
             fabHome.setVisibility(View.GONE);
         } else {
             fabHome.setVisibility(View.VISIBLE);
+            fabHome.setEnabled(false);
             recyclerView = binding.rv;
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.hasFixedSize();
@@ -63,9 +65,25 @@ public class WorkoutFragment extends Fragment {
             });
         }
 
-        fabHome.setOnClickListener(v -> Log.d(TAG, "onClick: editText is empty"));
+        fabHome.setOnClickListener(v -> {
+            // loop types
+            if (type == 0)
+                type = 8;
+            else if (type >= 8 && type < 15)
+                type++;
+            else if (type == 15)
+                type = 0;
+
+            updateWorkoutList(type);
+        });
+
         return root;
     }
+
+    private void updateWorkoutList(int type) {
+        workoutViewModel.updateWorkoutList(type);
+    }
+
 
     public void searchWorkout() {
         int val = 0;
