@@ -1,11 +1,12 @@
 package com.example.and_vidal.ui.workout;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,7 +60,6 @@ public class WorkoutFragment extends Fragment {
             fabHome.setVisibility(View.GONE);
         } else {
             fabHome.setVisibility(View.VISIBLE);
-            //fabHome.setEnabled(false);
             recyclerView = binding.rv;
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.hasFixedSize();
@@ -67,6 +67,7 @@ public class WorkoutFragment extends Fragment {
             workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
             // Call API and feed missing entries into DB
             workoutViewModel.requestWorkoutList();
+
             // Get from DB
             workoutViewModel.updateWorkoutList(0).observeForever(workouts -> {
                 workoutAdapter = new Workout.WorkoutAdapter(workouts);
@@ -127,7 +128,6 @@ public class WorkoutFragment extends Fragment {
     private void updateWorkoutList(int type) {
         workoutViewModel.updateWorkoutList(type);
     }
-
 
     public void searchWorkout() {
         int val = 0;

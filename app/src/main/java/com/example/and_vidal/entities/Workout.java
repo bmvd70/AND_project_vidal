@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,9 +21,9 @@ import java.util.List;
 
 public class Workout {
     private String name;
-    private String description;
+    private final String description;
     private int id;
-    private int category;
+    private final int category;
 
     public Workout(String name, String description, int id, int category) {
         this.name = name;
@@ -58,16 +59,8 @@ public class Workout {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getCategory() {
         return category;
-    }
-
-    public void setCategory(int category) {
-        this.category = category;
     }
 
     @NonNull
@@ -141,10 +134,9 @@ public class Workout {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView workoutName, workoutDescription, workoutId, workoutCategory;
+            TextView workoutName, workoutDescription;
             ImageView workoutImage;
             ConstraintLayout workoutLayout;
-
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
