@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.and_vidal.ILoginHandler;
+import com.example.and_vidal.LoginHandler;
 import com.example.and_vidal.R;
 import com.example.and_vidal.databinding.FragmentProfileBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,22 +23,23 @@ import com.google.firebase.auth.FirebaseUser;
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
+    private ILoginHandler loginHandler;
     private FirebaseAuth mAuth;
-
-    private static final String TAG = "ProfileFragment";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        loginHandler = LoginHandler.getInstance();
         FloatingActionButton fabProfile = binding.fabProfile;
         Button btnLogout = binding.btnLogout;
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = loginHandler.getmAuth();
 
         fabProfile.setOnClickListener(v -> {
-            if (checkLogin())
-                Toast.makeText(getContext(), "You are already logged in", Toast.LENGTH_SHORT).show();
-            else
+            if (checkLogin()) {
+                // TODO: intent for selecting a picture from gallery
+
+            } else
                 Navigation.findNavController(v).navigate(R.id.action_navigation_profile_to_navigation_signin);
         });
 
@@ -61,16 +64,17 @@ public class ProfileFragment extends Fragment {
     }
 
     @SuppressLint("SetTextI18n")
-    boolean checkLogin() {
+    private boolean checkLogin() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             binding.textLoggedIn.setText(currentUser.getEmail());
-            Toast.makeText(getActivity(), currentUser.getEmail() + " is signed in", Toast.LENGTH_SHORT).show();
             binding.btnLogout.setEnabled(true);
+            binding.fabProfile.setImageResource(R.drawable.ic_baseline_image_search_24);
             return true;
         } else {
             binding.textLoggedIn.setText("No user");
             binding.btnLogout.setEnabled(false);
+            binding.fabProfile.setImageResource(R.drawable.ic_baseline_login_24);
             return false;
         }
     }

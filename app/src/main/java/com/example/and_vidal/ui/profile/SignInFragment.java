@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.and_vidal.ILoginHandler;
+import com.example.and_vidal.LoginHandler;
 import com.example.and_vidal.R;
 import com.example.and_vidal.databinding.FragmentSigninBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,14 +26,15 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignInFragment extends Fragment {
 
     private FragmentSigninBinding binding;
-
     private static final String TAG = "ProfileFragment";
+    private ILoginHandler loginHandler;
     private FirebaseAuth mAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
+        loginHandler = LoginHandler.getInstance();
+        mAuth = loginHandler.getmAuth();
     }
 
     @Override
@@ -46,9 +49,9 @@ public class SignInFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentSigninBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Button btnSignin = (Button) binding.btnSignin;
-        ImageButton btnBack = (ImageButton) binding.btnSiBack;
-        TextView gotoSignup = (TextView) binding.siGotoSignup;
+        Button btnSignin = binding.btnSignin;
+        ImageButton btnBack = binding.btnSiBack;
+        TextView gotoSignup = binding.siGotoSignup;
 
         gotoSignup.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_navigation_signin_to_navigation_signup);
@@ -110,7 +113,7 @@ public class SignInFragment extends Fragment {
                 });
     }
 
-    boolean checkLogin() {
+    private boolean checkLogin() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         return currentUser != null;
     }

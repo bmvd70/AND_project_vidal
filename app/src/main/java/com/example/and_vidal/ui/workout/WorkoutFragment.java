@@ -43,6 +43,7 @@ public class WorkoutFragment extends Fragment {
 
         FloatingActionButton fabHome = binding.fabHome;
 
+        // if no one is logged in, do not display anything
         if (loginHandler.getCurrentUser() == null) {
             Toast.makeText(getContext(), "Please login to use this feature", Toast.LENGTH_SHORT).show();
             fabHome.setVisibility(View.GONE);

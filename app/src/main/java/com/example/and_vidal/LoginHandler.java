@@ -1,6 +1,5 @@
 package com.example.and_vidal;
 
-import com.example.and_vidal.DAO.WorkoutsDAO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -21,9 +20,12 @@ public class LoginHandler implements ILoginHandler {
         return instance;
     }
 
-    public FirebaseUser getCurrentUser () {
+    public FirebaseAuth getmAuth() {
+        return mAuth;
+    }
+
+    public FirebaseUser getCurrentUser() {
         currentUser = mAuth.getCurrentUser();
         return currentUser;
     }
-
 }
