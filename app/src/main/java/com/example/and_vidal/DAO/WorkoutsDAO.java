@@ -98,11 +98,26 @@ public class WorkoutsDAO implements IWorkoutsDAO {
     }
 
     @Override
-    public void updateWorkoutList(int type) {
+    public MutableLiveData<List<Workout>> updateWorkoutList(int type) {
         if (type == 0)
-            getAllWorkouts();
-        else
-            Objects.requireNonNull(workoutsMutable.getValue()).removeIf(workout ->
-                workout.getCategory() != type);
+            return getAllWorkouts();
+        else {
+            workoutsMutable.setValue(new ArrayList<>());
+            db.collection("workouts").get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            ArrayList<Workout> workouts = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Workout workout = document.toObject(Workout.class);
+                                if (workout.getCategory() == type)
+                                    workouts.add(workout);
+                            }
+                            workoutsMutable.postValue(workouts);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    });
+            return workoutsMutable;
+        }
     }
 }

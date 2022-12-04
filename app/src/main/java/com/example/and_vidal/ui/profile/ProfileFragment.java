@@ -136,7 +136,7 @@ public class ProfileFragment extends Fragment {
             fabProfile.setImageResource(R.drawable.ic_baseline_image_search_24);
             if (sharedPreferences.getString("profileImage_" + currentUser.getEmail(), null) != null) {
                 Log.d(TAG, "checkLogin: " + Uri.parse(sharedPreferences.getString("profileImage_" + currentUser.getEmail(), null)));
-                //ivProfile.setImageURI(Uri.parse(sharedPreferences.getString("profileImage_" + currentUser.getEmail(), null)));
+                ivProfile.setImageURI(Uri.parse(sharedPreferences.getString("profileImage_" + currentUser.getEmail(), null)));
             }
             //if (currentUser.getPhotoUrl() != null) {
             //    ivProfile.setImageURI(currentUser.getPhotoUrl());

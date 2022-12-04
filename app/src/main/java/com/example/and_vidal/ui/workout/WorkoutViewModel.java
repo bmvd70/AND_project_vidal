@@ -29,8 +29,8 @@ public class WorkoutViewModel extends ViewModel {
         return repository.getAllWorkouts();
     }
 
-    public void updateWorkoutList(int type) {
-        repository.updateWorkoutList(type);
+    public MutableLiveData<List<Workout>> updateWorkoutList(int type) {
+        return repository.updateWorkoutList(type);
     }
 
 

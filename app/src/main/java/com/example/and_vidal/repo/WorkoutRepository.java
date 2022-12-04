@@ -96,7 +96,7 @@ public class WorkoutRepository {
         }
     }
 
-    public void updateWorkoutList(int type) {
-        workoutsDAO.updateWorkoutList(type);
+    public MutableLiveData<List<Workout>> updateWorkoutList(int type) {
+        return workoutsDAO.updateWorkoutList(type);
     }
 }

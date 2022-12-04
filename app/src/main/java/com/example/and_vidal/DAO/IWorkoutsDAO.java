@@ -14,5 +14,5 @@ public interface IWorkoutsDAO {
     MutableLiveData<Workout> getWorkout(int id);
     MutableLiveData<List<Workout>> getAllWorkouts();
 
-    void updateWorkoutList(int type);
+    MutableLiveData<List<Workout>> updateWorkoutList(int type);
 }

@@ -1,6 +1,7 @@
 package com.example.and_vidal.entities;
 
 public enum WorkoutCategory {
+    WORKOUT(0),
     ARMS(8),
     LEGS(9),
     ABS(10),

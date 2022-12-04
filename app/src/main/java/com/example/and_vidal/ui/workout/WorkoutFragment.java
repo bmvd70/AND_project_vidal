@@ -1,10 +1,12 @@
 package com.example.and_vidal.ui.workout;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.and_vidal.ILoginHandler;
 import com.example.and_vidal.LoginHandler;
+import com.example.and_vidal.R;
 import com.example.and_vidal.entities.Workout;
 import com.example.and_vidal.databinding.FragmentWorkoutBinding;
+import com.example.and_vidal.entities.WorkoutCategory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class WorkoutFragment extends Fragment {
@@ -28,6 +32,9 @@ public class WorkoutFragment extends Fragment {
     private Workout.WorkoutAdapter workoutAdapter;
     private ILoginHandler loginHandler;
     private WorkoutViewModel workoutViewModel;
+
+    private FloatingActionButton fabHome;
+    private TextView tvWorkoutType;
 
     private int type = 0;
 
@@ -42,7 +49,9 @@ public class WorkoutFragment extends Fragment {
         View root = binding.getRoot();
         loginHandler = LoginHandler.getInstance();
 
-        FloatingActionButton fabHome = binding.fabHome;
+        fabHome = binding.fabHome;
+        tvWorkoutType = binding.singleWorkoutCategory;
+
 
         // if no one is logged in, do not display anything
         if (loginHandler.getCurrentUser() == null) {
@@ -50,7 +59,7 @@ public class WorkoutFragment extends Fragment {
             fabHome.setVisibility(View.GONE);
         } else {
             fabHome.setVisibility(View.VISIBLE);
-            fabHome.setEnabled(false);
+            //fabHome.setEnabled(false);
             recyclerView = binding.rv;
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.hasFixedSize();
@@ -59,7 +68,7 @@ public class WorkoutFragment extends Fragment {
             // Call API and feed missing entries into DB
             workoutViewModel.requestWorkoutList();
             // Get from DB
-            workoutViewModel.getWorkoutList().observeForever(workouts -> {
+            workoutViewModel.updateWorkoutList(0).observeForever(workouts -> {
                 workoutAdapter = new Workout.WorkoutAdapter(workouts);
                 recyclerView.setAdapter(workoutAdapter);
             });
@@ -73,11 +82,46 @@ public class WorkoutFragment extends Fragment {
                 type++;
             else if (type == 15)
                 type = 0;
-
+            setFabIcon(type);
+            tvWorkoutType.setText(WorkoutCategory.getName(type));
             updateWorkoutList(type);
         });
 
         return root;
+    }
+
+    private void setFabIcon(int type) {
+        int icon;
+        switch (type) {
+            case 8:
+                icon = R.drawable.arms;
+                break;
+            case 9:
+                icon = R.drawable.legs;
+                break;
+            case 10:
+                icon = R.drawable.abs;
+                break;
+            case 11:
+                icon = R.drawable.chest;
+                break;
+            case 12:
+                icon = R.drawable.back;
+                break;
+            case 13:
+                icon = R.drawable.shoulders;
+                break;
+            case 14:
+                icon = R.drawable.calves;
+                break;
+            case 15:
+                icon = R.drawable.cardio;
+                break;
+            default:
+                icon = R.drawable.ic_baseline_search_24;
+                break;
+        }
+        fabHome.setImageResource(icon);
     }
 
     private void updateWorkoutList(int type) {
