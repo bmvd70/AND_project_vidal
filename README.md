@@ -1,48 +1,25 @@
 # AND_project_vidal
 VIA University College: Android Development Group: Vidal
 
-To-Do's:
-- [x] Create repo
-- [x] Decide on subject: Fitness
-- [x] Hand in the link
-- [x] Overview
-- [ ] Document prep
-- [ ] For Interaction - get rid of uneccessary toasts and check lifecycle of workout bc of loading the list and the go back button needs to be pressed whenever u swap navigation
-- [ ] For Navigation - add an intent (maybe camera for profilepic?)
-- [ ] For Firebase make sense of the login (pb upload, list access only if logged in, or just favs if logged in, settings?)
+Exam Project: 
+I want to build an application that combines multiple functions of fitness apps into one. The MVP is a displayable list of workouts. This could then be enhanced by adding and login, a database, a nutrition segment, a stats segment incl. tracking of workouts, a tabata page.
 
-Possible To-Do's:
-- [ ] Filter list by category using fab
-- [ ] favorites, icon and save them in firebase according to user 
-- [ ] intent for camera to upload a profile pic and store it in firebase
-- [ ] copypasta workout to nutrition
-
-Requirements:
-- [ ] Tabata clock
-- [ ] Account to Login track weight, size?
-- [ ] Network connection to verify account and fetch new data
-- [ ] Page with graphs on personal stats and workouts?
-- [ ] Protein calculator
-- [ ] Page with health tips + protein boosts(meals)?
-- [ ] Page with exercises + filter
-
-Reason: 
-I'd like to create a fitness app that includes many different existing fitness apps into one. 
-I'd also like to make an account and / or payment optional. So that one can use the app without an account (the core features at least) and without a subscription fee.
+## User stories:
+- [x] As a user I want to be able to login to an existing account 
+- [x] As a user I want to be able to sign up to a new account
+- [x] As a user I want to be able to switch between accounts
+- [x] As a user I want to be able to set my profile picture
+- [x] As a user I want to be able to view a list of workouts
+- [x] As a user I want to be able to view a single workout
+- [ ] As a user I want to be able to view a list of recepies
+- [ ] As a user I want to be able to see my tracked stats
+- [ ] As a user I want to be able to see my liked workouts
+- [ ] As a user I want to be able to use the tabata clock
+- [ ] As a user I want to be able to filter workouts by category
+- [ ] As a user I want to be able to track and display my weight 
+- [ ] As a user I want to have a sleek design, material m3, dark
+- [ ] As a user I want to navigate between subjects with ease and intuition
 
 
+## Video:
 
-
-●How well the requirements cover the topics of the class:
-- [x] Basics/UI
-- [x] Interaction
-- [/] Navigation
-- [x] UX
-- [x] Lists
-- [/] Architecture
-- [ ] Persistence
-- [x] Networking
-- [x] Firebase
-- [ ] Quality
-●The UX design (e.g. following the material design guidelines)
-●Well-structured source code
