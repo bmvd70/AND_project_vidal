@@ -3,6 +3,7 @@ VIA University College: Android Development Group: Vidal
 
 Exam Project: 
 I want to build an application that combines multiple functions of fitness apps into one. The MVP is a displayable list of workouts. This could then be enhanced by adding and login, a database, a nutrition segment, a stats segment incl. tracking of workouts, a tabata page.
+There are a lot of fitness apps out there but they often just fulfill a specific purpose, so it would make sense to have an application that combines all the usecases into one app.
 
 ## User stories:
 - [x] As a user I want to be able to login to an existing account 
